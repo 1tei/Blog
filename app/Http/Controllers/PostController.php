@@ -10,14 +10,15 @@ class PostController extends Controller
 {
     public function index(){
 
-        return view('posts', [
-            'posts'=> Post::latest()->filter(request(['search']))->get(), //$this->getPosts(),
-            'categories' => Category::all()
+        return view('posts.index', [
+            'posts'=> Post::latest()->filter(request(['search', 'category', 'author'])
+            )->paginate(9)->withQueryString(),
+            //$this->getPosts(),
         ]);
     }
 
     public function show(Post $post){
-        return view('post', [
+        return view('posts.show', [
             'post' => $post
         ]);
     }
