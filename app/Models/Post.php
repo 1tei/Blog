@@ -12,22 +12,38 @@ class Post extends Model
     //protected $fillable = ['title', 'slug', 'excerpt', 'body'];
     protected $guarded = [];
 
-    //protected $with  = ['category', 'author'];
+    protected $with  = ['category', 'author'];
 
     public function scopefilter($query, array $filters){ //Post::newQuery()->filter()
-        //$query->where
-        if ($filters['search'] ?? false) {
-            $query
-                ->where('title', 'like', '%' . request('search') . '%')
-                ->orWhere('body', 'like', '%' . request('search') . '%');
-        }
-
         //ANOTHER METHOD
-        /*$query->when($filters['search'] ?? false, function ($query, $search) {
+        //$query->where
+
+/*        if ($filters['category'] ?? false) {
             $query
-                ->where('title', 'like', '%' . $search . '%')
-                ->orWhere('body', 'like', '%' . $search . '%');
-        });*/
+                ->where('slug', request('category'));
+        }*/
+
+        $query->when($filters['search'] ?? false, function ($query) {
+            $query->where(function($query) {
+                $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%');
+            });
+        });
+
+        $query->when($filters['category'] ?? false, function ($query) {
+             $query->whereHas('category', function($query) {
+                 $query
+                   ->where('slug', request('category'));
+            });
+        });
+
+        $query->when($filters['author'] ?? false, function ($query) {
+            $query->whereHas('author', function($query) {
+                $query
+                    ->where('username', request('author'));
+            });
+        });
+
     }
 
     public function category()

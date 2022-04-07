@@ -12,7 +12,9 @@
                     <div class="flex items-center lg:justify-center text-sm mt-4">
                         <img src="/images/lary-avatar.svg" alt="Lary avatar">
                         <div class="ml-3 text-left">
-                            <h5 class="font-bold">{{ $post->author->name }}</h5>
+                            <h5 class="font-bold">
+                                <a href="/?author=">{{ $post->author->name }}</a>
+                            </h5>
                         </div>
                     </div>
                 </div>
@@ -50,18 +52,4 @@
                 </div>
             </article>
         </main>
-
-    {{--    <article>
-            <h1>{{ $post->title }}</h1>
-
-            <p>
-                By <a href="/authors/{{$post->author->username}}">{{ $post->author->name }} </a> in <a href="/categories/{{ $post->category->slug }}"> {{ $post->category->name }} </a>
-            </p>
-
-            <div>
-                {!!  $post->body !!}
-            </div>
-        </article>
-
-        <a href="/">GO BACK</a>--}}
 </x-layout>
