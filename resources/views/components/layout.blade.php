@@ -15,13 +15,22 @@
             </a>
         </div>
 
-        <div class="mt-8 md:mt-0">
-            <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+        @auth
+            <div class="mt-8 md:mt-0 flex">
 
-            <a href="#" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
-                Subscribe for Updates
-            </a>
-        </div>
+                <span class="py-3 px-5 text-l font-bold uppercase">Welcome, {{ auth()->user()->name }}</span>
+
+                <form method="POST" action="/logout">
+                    @csrf
+                    <button type="submit" class="bg-blue-500 ml-3 rounded-full text-sm font-semibold text-white uppercase py-3 px-5">LOG OUT</button>
+                </form>
+            </div>
+        @else
+            <div >
+                <a href="/register" class="text-l font-bold uppercase">Register</a>
+                <a href="/login" class="bg-blue-500 ml-3 rounded-full text-l font-semibold text-white uppercase py-3 px-5">LOG IN</a>
+            </div>
+        @endauth
     </nav>
 
     {{ $slot }}
@@ -54,4 +63,10 @@
         </div>
     </footer>
 </section>
+
+
+<x-flash>
+
+</x-flash>
+
 </body>
