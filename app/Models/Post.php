@@ -10,7 +10,9 @@ class Post extends Model
     use HasFactory;
 
     //protected $fillable = ['title', 'slug', 'excerpt', 'body'];
-    protected $guarded = [];
+
+    //Defined in AppServiceProvider
+    //protected $guarded = [];
 
     protected $with  = ['category', 'author'];
 
@@ -52,9 +54,13 @@ class Post extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function author()
+    public function author() //author_id must overwrite
     {
-        //hasOne, hasMany, belongsTo, belongsToMany
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id'); //if the function is named differently than the field itself
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

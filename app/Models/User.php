@@ -24,7 +24,8 @@ class User extends Authenticatable
         'username',
     ];*/
 
-    protected $guarded = [];
+    //Defined in AppServiceProvider
+    //protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -55,5 +56,9 @@ class User extends Authenticatable
 
     public function posts(){
         return $this->hasMany(Post::class);
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
     }
 }
