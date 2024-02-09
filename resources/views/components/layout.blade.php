@@ -3,6 +3,7 @@
 <title>My Blog</title>
 @vite('resources/css/app.css')
 <link rel="stylesheet" href="/app.css">
+<script src="//unpkg.com/alpinejs" defer></script>
 
 <nav class="md:flex md:justify-between md:items-center">
     <div>
@@ -21,5 +22,5 @@
 </nav>
 
 <body>
-    {{ $slot }}
+{{ $slot }}
 </body>
