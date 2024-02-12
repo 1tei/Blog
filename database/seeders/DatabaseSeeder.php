@@ -18,17 +18,20 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Post::factory(15)->create([
-            'user_id' => $user->id
+            'user_id' => $user->id,
+            'thumbnail' => 'thumbnails/uqxb0LI7zxeLMe0xKZVkm4pN27t8QzMbJ9Psy4Yf.jpg'
         ]);
 
         Post::factory(10)->create([
             'user_id' => $user->id,
-            'category_id' => 3
+            'category_id' => 3,
+            'thumbnail' => 'thumbnails/uqxb0LI7zxeLMe0xKZVkm4pN27t8QzMbJ9Psy4Yf.jpg'
         ]);
 
         Post::factory(10)->create([
             'user_id' => $user->id,
-            'category_id' => 2
+            'category_id' => 2,
+            'thumbnail' => 'thumbnails/uqxb0LI7zxeLMe0xKZVkm4pN27t8QzMbJ9Psy4Yf.jpg'
         ]);
     }
 }

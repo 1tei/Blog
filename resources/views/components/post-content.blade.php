@@ -3,7 +3,7 @@
 <article {{ $attributes(['class' => 'transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl']) }} >
     <div class="py-6 px-5">
         <div>
-            <img src="/images/background.png" alt="Blog Post illustration" class="rounded-xl">
+            <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="Blog Post illustration" class="rounded-xl">
         </div>
 
         <div class="mt-8 flex flex-col justify-between">
@@ -32,11 +32,16 @@
             </div>
 
             <footer class="flex justify-between items-center mt-8">
-                <div class="flex items-center text-sm">
-                    <img src="/images/author.svg" alt="avatar" width="70">
-                    <div class="ml-3">
+                <div class="flex text-sm items-center justify-start">
+                    <div>
+                        <img src="https://i.pravatar.cc/100?u={{ $post->user_id }}" alt="avatar" width="60"
+                             height="60"
+                             class="rounded-xl">
+                    </div>
+                    <div class="ml-3 text-left">
                         <a href="/?author={{ $post->author->username }}">
-                            <h5 class="font-bold">{{ $post->author->name }}</h5>
+                            <h5 class="font-bold justify-end"> {{ ucwords($post->author->name) }}</h5>
+                            <h6 class="font-medium">Best person in town</h6>
                         </a>
                     </div>
                 </div>

@@ -22,4 +22,29 @@ class PostController extends Controller
             'post' => $post
         ]);
     }
+
+    public function create()
+    {
+        $categories = Category::all();
+        return view('posts.create')->with('categories', $categories);
+    }
+
+    public function store()
+    {
+        $attributes = request()->validate([
+            'category_id' => ['required', 'exists:categories,id'],
+            'thumbnail' => ['required', 'image'],
+            'handle' => ['required', 'unique:posts,handle', 'max:16', 'min:3'],
+            'title' => ['required', 'max:255', 'min:3'],
+            'excerpt' => ['required'],
+            'body' => ['required']
+        ]);
+
+        $attributes['user_id'] = auth()->id();
+        $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');
+
+        $post = Post::create($attributes);
+
+        return redirect('/posts/' . $post->handle);
+    }
 }
