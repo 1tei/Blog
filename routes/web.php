@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:handle}', [PostController::class, 'show'])->name('posts');
+
 Route::post('posts/{post:handle}/comments', [CommentController::class, 'store']);
 
 Route::post('newsletter', NewsletterController::class);
@@ -18,8 +20,13 @@ Route::post('register', [RegisterController::class, 'store'])->middleware('guest
 
 Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
-
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
-Route::get('admin/posts/create', [PostController::class, 'create'])->middleware('admin')->name('postCreate');
-Route::post('admin/posts', [PostController::class, 'store'])->middleware('admin');
+Route::middleware('can:admin')->group(function () {
+    Route::get('admin/posts', [AdminPostController::class, 'index'])->name('postAll');
+    Route::post('admin/posts', [AdminPostController::class, 'store']);
+    Route::get('admin/posts/create', [AdminPostController::class, 'create'])->name('postCreate');
+    Route::get('admin/posts/{post:handle}/edit', [AdminPostController::class, 'edit']);
+    Route::patch('admin/posts/{post}', [AdminPostController::class, 'update']);
+    Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy']);
+});
