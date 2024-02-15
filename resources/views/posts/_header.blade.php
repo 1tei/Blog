@@ -2,7 +2,7 @@
 <section class="px-6 py-8">
     <header class="max-w-xl mx-auto mt-20 text-center">
         <h1 class="text-4xl">
-            Latest <span class="text-blue-500">White Boy Summer</span> News
+            Latest <span class="text-purple-500 font-medium">White Boy Summer</span> News
         </h1>
 
         <div class="space-y-2 lg:space-y-0 lg:space-x-4 mt-8">
@@ -14,6 +14,10 @@
                 <form method="GET" action="/">
                     @if (request('category'))
                         <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
+
+                    @if (request('author'))
+                        <input type="hidden" name="author" value="{{ request('author') }}">
                     @endif
 
                     <input type="text"

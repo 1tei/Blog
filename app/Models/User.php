@@ -52,4 +52,40 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
+
+    public function followers()
+    {
+        return $this->hasMany(Follow::class, 'followed_user_id');
+    }
+
+    public function followerInstances()
+    {
+        return $this->followers->map(function ($follow) {
+            return $follow->user;
+        });
+    }
+
+    public function follows()
+    {
+        return $this->hasMany(Follow::class, 'user_id');
+    }
+
+    public function followInstances()
+    {
+        return $this->follows->map(function ($follow) {
+            return $follow->followedUser;
+        });
+    }
+
+    public function bookmarks()
+    {
+        return $this->hasMany(Bookmark::class);
+    }
+
+    public function bookmarkInstances()
+    {
+        return $this->bookmarks->map(function ($bookmark) {
+            return $bookmark->post;
+        });
+    }
 }

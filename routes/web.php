@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
@@ -12,6 +14,12 @@ Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:handle}', [PostController::class, 'show'])->name('posts');
 
 Route::post('posts/{post:handle}/comments', [CommentController::class, 'store']);
+
+Route::post('follow/{user}', [FollowController::class, 'store']);
+Route::delete('unfollow/{user}', [FollowController::class, 'destroy']);
+
+Route::post('favorite/{post}', [BookmarkController::class, 'store']);
+Route::delete('unfavorite/{post}', [BookmarkController::class, 'destroy']);
 
 Route::post('newsletter', NewsletterController::class);
 

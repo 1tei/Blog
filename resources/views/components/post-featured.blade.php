@@ -1,62 +1,46 @@
 @props(['post'])
 
 <article {{ $attributes->merge(['class' => 'transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl']) }} >
-    <div class="py-6 px-5 lg:flex">
-        <div class="flex-1 lg:mr-8">
-            {{-- TODO --}}
-            <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="Blog Post illustration" class="rounded-xl">
-        </div>
-
-        <div class="flex-1 flex flex-col justify-between">
-            <header class="mt-8 lg:mt-0">
-                <div class="space-x-2">
-                    <a href="/?category={{ $post->category->name }}"
-                       class="px-3 py-1 border border-blue-300 rounded-full text-blue-300 text-xs uppercase font-semibold"
-                       style="font-size: 10px">
-                        {{ $post->category->name }}
-                    </a>
-                </div>
-
-                <div class="mt-4">
-                    <h1 class="text-3xl">
-                        {{ $post->title }}
-                    </h1>
-
-                    <span class="mt-2 block text-gray-400 text-xs">
-                        Published <time>{{ $post->created_at->diffForHumans() }}</time>
-                    </span>
-                </div>
-            </header>
-
-            <div class="text-sm mt-2">
-                <p>
-                    {{ $post->excerpt }}
-                </p>
+    <div class="py-6 px-5 flex justify-center">
+        <div class="lg:flex lg:max-w-full max-w-xl">
+            <div class="max-w-lg flex-shrink-0 lg:mr-8">
+                <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="Blog Post illustration"
+                     class="rounded-xl">
             </div>
 
-            <footer class="flex justify-between items-center mt-8">
-                <div class="flex items-center text-sm">
-                    <div class="flex text-sm items-center justify-start">
-                        <div>
-                            <img src="https://i.pravatar.cc/100?u={{ $post->user_id }}" alt="avatar" width="60"
-                                 height="60"
-                                 class="rounded-xl">
-                        </div>
-                        <div class="ml-3 text-left">
-                            <a href="/?author={{ $post->author->username }}">
-                                <h5 class="font-bold justify-end"> {{ ucwords($post->author->name) }}</h5>
-                                <h6 class="font-medium">Best person in town</h6>
-                            </a>
-                        </div>
+            <div class="flex flex-col">
+                <header class="mt-4 lg:mt-0">
+                    @include('posts._post-bookmark')
+
+                    <div class="">
+                        <a href="/?category={{ $post->category->name }}"
+                           class="transition-colors duration-300  font-bold px-3 py-1 border-2 border-purple-500 rounded-full text-purple-500 uppercase hover:text-white hover:bg-purple-500"
+                           style="font-size: 11px">{{ $post->category->name }}</a>
                     </div>
+
+                    <div class="mt-4">
+                        <h1 class="text-3xl font-normal">
+                            <a href="/posts/{{ $post->handle }}"
+                               class="transition-all duration-300 hover:text-purple-500">
+                                {{ $post->title }}
+                            </a>
+                        </h1>
+
+                        <span class="mt-2 block text-gray-400 text-xs">
+                        Published <time>{{ $post->created_at->diffForHumans() }}</time>
+                    </span>
+                    </div>
+                </header>
+
+                <div class="flex-1 text-sm mt-2">
+                    <p>
+                        {{ $post->excerpt }}
+                    </p>
                 </div>
 
-                <div class="hidden lg:block">
-                    <a href="/posts/{{ $post->handle }}"
-                       class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-8"
-                    >Read More</a>
-                </div>
-            </footer>
+                @include ('posts._post-footer')
+
+            </div>
         </div>
     </div>
 </article>

@@ -12,18 +12,8 @@
                         <time>{{ $post->created_at->diffForHumans() }}</time>
                     </p>
 
-                    <div class="flex text-sm items-center justify-start">
-                        <div>
-                            <img src="https://i.pravatar.cc/100?u={{ $post->user_id }}" alt="avatar" width="60"
-                                 height="60"
-                                 class="rounded-xl">
-                        </div>
-                        <div class="ml-3 text-left">
-                            <a href="/?author={{ $post->author->username }}">
-                                <h5 class="font-bold justify-end"> {{ ucwords($post->author->name) }}</h5>
-                                <h6 class="font-medium">Best person in town</h6>
-                            </a>
-                        </div>
+                    <div class="flex text-sm items-center justify-start mt-8">
+                        @include('posts._author')
                     </div>
                 </div>
 

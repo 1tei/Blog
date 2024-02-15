@@ -2,18 +2,34 @@
 
 <title>My Blog</title>
 @vite('resources/css/app.css')
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
 <script src="//unpkg.com/alpinejs" defer></script>
 <style>
     html {
         scroll-behavior: smooth;
     }
+
+    * {
+        font-family: "Sora", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 100;
+        font-style: normal;
+    }
 </style>
 
+
 <body>
-<nav class="md:flex md:justify-between md:items-center px-8">
+<nav class="md:flex md:justify-between md:items-center px-12 pt-8">
     <div>
-        <a href="/">
-            <img src="/images/logo.png" alt="Site Logo" width="100" height="32">
+        <a href="/" class="font-bold text-2xl">
+            <h1 class="text-purple-600">
+                WBS
+            </h1>
+            <h2 class="font-light">
+                BLOG
+            </h2>
         </a>
     </div>
 
@@ -21,7 +37,7 @@
         @auth
             <x-dropdown>
                 <x-slot name="trigger">
-                    <button class="text-xs font-bold uppercase">Welcome, {{ auth()->user()->name }}</button>
+                    <button class="text-sm font-bold uppercase">Welcome, {{ auth()->user()->name }}</button>
                 </x-slot>
 
                 @admin
@@ -41,24 +57,40 @@
                       class="text-xs font-semibold ml-6 hidden">
                     @csrf
                     <button type="submit"
-                            class="text-blue-500 rounded-full py-3 px-5 border-2 border-blue-500 hover:bg-blue-500 hover:text-white">
+                            class="text-purple-600 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">
                         LOG OUT
                     </button>
                 </form>
             </x-dropdown>
         @else
-            <a href="/register"
-               class="text-blue-500 rounded-full py-3 px-5 border-2 border-blue-500 hover:bg-blue-500 hover:text-white">REGISTER</a>
-            <a href="/login"
-               class="text-blue-500 ml-4 rounded-full py-3 px-5 border-2 border-blue-500 hover:bg-blue-500 hover:text-white">LOGIN</a>
-        @endauth
+            <div>
+                <a href="/register"
+                   class="font-medium text-purple-600 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">REGISTER</a>
+                <a href="/login"
+                   class="font-medium text-purple-600 ml-4 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">LOGIN</a>
+                @endauth
 
-        <a href="#newsletter"
-           class="bg-blue-500 rounded-full ml-4 text-xs font-semibold text-white uppercase py-3 px-5 border-2 border-blue-500">
-            Subscribe for Updates
-        </a>
-    </div>
+                <a href="#newsletter"
+                   class="bg-purple-500 rounded-full m-4 text-xs font-semibold text-white uppercase py-3 px-5 border-2 border-purple-500">
+                    Subscribe for Updates
+                </a>
+            </div>
 </nav>
+
+@auth
+    <aside class="block overflow-y-scroll fixed ml-6 p-4 mt-12 text-center border-2 border-purple-500 h-64 rounded-xl">
+        <h1 class="font-semibold mb-4 border-b-2 border-purple-500">Following</h1>
+        <ul>
+            @foreach (auth()->user()->followInstances() as $follow)
+                <li>
+                    <a href="/?author={{ $follow->username }}"
+                       class="{{ request()->is('/?author=johndoe') ? 'text-purple-600' : '' }}">{{ $follow->name }}</a>
+                </li>
+
+            @endforeach
+        </ul>
+    </aside>
+@endauth
 
 {{ $slot }}
 
@@ -82,7 +114,7 @@
                 </div>
 
                 <button type="submit"
-                        class="transition-colors duration-300 bg-blue-500 hover:bg-blue-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
+                        class="transition-colors duration-300 bg-purple-500 hover:bg-purple-600 mt-4 lg:mt-0 lg:ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-8"
                 >
                     Subscribe
                 </button>

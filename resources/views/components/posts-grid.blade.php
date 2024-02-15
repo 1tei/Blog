@@ -4,11 +4,11 @@
 
 @if ($posts->count() > 1)
     <!-- Other posts-->
-    <div class="lg:grid lg:grid-cols-6">
+    <div class="lg:grid lg:grid-cols-6 mb-8">
         @foreach ($posts->skip(1) as $post)
             <x-post-content
-                :post="$post"
-                class="{{ $loop->iteration < 3 ? 'col-span-3' : 'col-span-2' }}"/>
+                    :post="$post"
+                    class="{{ 'col-span-2' }}"/>
         @endforeach
     </div>
 @endif
