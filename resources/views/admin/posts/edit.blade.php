@@ -4,11 +4,11 @@
             @csrf
             @method('PATCH')
 
-            <x-form.input name="title" :value="old('title', $post->title)"/>
-            <x-form.input name="handle" :value="old('handle', $post->handle)"/>
+            <x-form.simpleInput name="title" :value="old('title', $post->title)"/>
+            <x-form.simpleInput name="handle" :value="old('handle', $post->handle)"/>
             <div class="flex">
                 <div class="flex-1">
-                    <x-form.input name="thumbnail" type="file" :value="old('thumbnail', $post->thumbnail)"/>
+                    <x-form.simpleInput name="thumbnail" type="file" :value="old('thumbnail', $post->thumbnail)"/>
                 </div>
                 <div class="ml-6 mt-">
                     <x-form.label name="Current image"/>

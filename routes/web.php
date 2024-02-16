@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminPostController;
 use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\NewsletterController;
@@ -13,14 +14,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('posts/{post:handle}', [PostController::class, 'show'])->name('posts');
 
-Route::post('posts/{post:handle}/comments', [CommentController::class, 'store']);
+Route::post('posts/{post:handle}/comments', [CommentController::class, 'store'])->middleware('auth');
 
-Route::post('follow/{user}', [FollowController::class, 'store']);
-Route::delete('unfollow/{user}', [FollowController::class, 'destroy']);
+Route::post('follow/{user}', [FollowController::class, 'store'])->middleware('auth');
+Route::delete('unfollow/{user}', [FollowController::class, 'destroy'])->middleware('auth');
 
-Route::get('bookmarks', [BookmarkController::class, 'index'])->name('bookmarks');
-Route::post('favorite/{post}', [BookmarkController::class, 'store']);
-Route::delete('unfavorite/{post}', [BookmarkController::class, 'destroy']);
+Route::get('bookmarks', [BookmarkController::class, 'index'])->middleware('auth')->name('bookmarks');
+Route::post('favorite/{post}', [BookmarkController::class, 'store'])->middleware('auth');
+Route::delete('unfavorite/{post}', [BookmarkController::class, 'destroy'])->middleware('auth');
 
 Route::post('newsletter', NewsletterController::class);
 
@@ -35,7 +36,14 @@ Route::middleware('can:admin')->group(function () {
     Route::get('admin/posts', [AdminPostController::class, 'index'])->name('postAll');
     Route::post('admin/posts', [AdminPostController::class, 'store']);
     Route::get('admin/posts/create', [AdminPostController::class, 'create'])->name('postCreate');
-    Route::get('admin/posts/{post:handle}/edit', [AdminPostController::class, 'edit']);
+    Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit']);
     Route::patch('admin/posts/{post}', [AdminPostController::class, 'update']);
     Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy']);
+
+    Route::get('admin/categories', [CategoryController::class, 'index']);
+    Route::post('admin/categories', [CategoryController::class, 'store']);
+    Route::get('admin/categories/create', [CategoryController::class, 'create']);
+    Route::get('admin/categories/{category}/edit', [CategoryController::class, 'edit']);
+    Route::patch('admin/categories/{category}', [CategoryController::class, 'update']);
+    Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy']);
 });

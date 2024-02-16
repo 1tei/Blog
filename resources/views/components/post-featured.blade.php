@@ -3,9 +3,11 @@
 <article {{ $attributes->merge(['class' => 'transition-colors duration-300 hover:bg-gray-100 border border-black border-opacity-0 hover:border-opacity-5 rounded-xl']) }} >
     <div class="py-6 px-5 flex justify-center">
         <div class="lg:flex lg:max-w-full max-w-xl">
-            <div class="max-w-lg flex-shrink-0 lg:mr-8">
-                <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="Blog Post illustration"
-                     class="rounded-xl">
+            <div class="flex-shrink-0 lg:max-w-full max-w-xl lg:mr-8">
+                <div>
+                    <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="Blog Post illustration"
+                         class="rounded-xl">
+                </div>
             </div>
 
             <div class="flex flex-col">
@@ -32,7 +34,7 @@
                     </div>
                 </header>
 
-                <div class="flex-1 text-sm mt-2">
+                <div class="flex-1 overflow-hidden max-h-52 text-sm mt-2">
                     <p>
                         {{ $post->excerpt }}
                     </p>

@@ -1,6 +1,6 @@
 <body style="font-family: Open Sans, sans-serif">
 <section class="px-6 py-8">
-    <header class="max-w-xl mx-auto mt-20 text-center">
+    <header class="lg:max-w-6xl max-w-xl mx-auto mt-20 text-center">
         <h1 class="text-4xl">
             Latest <span class="text-purple-500 font-medium">White Boy Summer</span> News
         </h1>
@@ -28,6 +28,16 @@
                 </form>
             </div>
         </div>
+
+        @auth
+            <div class="overflow-x-auto py-4 text-center mt-12 rounded-xl px-5 py-6">
+                <ul class="flex flex-row">
+                    @foreach (auth()->user()->followInstances() as $follow)
+                        <x-followed-author :follow="$follow"/>
+                    @endforeach
+                </ul>
+            </div>
+        @endauth
     </header>
 </section>
 </body>

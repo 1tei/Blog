@@ -1,7 +1,7 @@
 <x-layout>
     <x-setting heading="Manage Posts">
         <div class="flex flex-col">
-            <div class="overflow-x-auto -m-6">
+            <div class="overflow-x-auto -m-16">
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200">
@@ -13,7 +13,7 @@
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Handle
+                                    Category
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -33,7 +33,7 @@
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Select
+                                    Publish
                                 </th>
                             </tr>
 
@@ -43,36 +43,54 @@
                             @foreach ($posts as $post)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="text-sm font-medium text-gray-900">
-                                                <a href="/posts/{{ $post->handle }}">
-                                                    {{ $post->title }}
-                                                </a>
+                                        <div class="flex items-center ">
+                                            <div class="text-gray-900">
+                                                @if ($post->category)
+                                                    <a href="/posts/{{ $post->handle }}" class="font-medium text-xs">
+                                                        {{ $post->title }}
+                                                    </a>
+                                                @else
+                                                    <p class="font-medium text-xs">{{ $post->title }}</p>
+                                                @endif
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="text-sm font-medium text-gray-900">
-                                                {{ $post->handle }}
+                                        @if($post->category)
+                                            <div class="flex items-center">
+                                                <div class="text-gray-900 font-medium text-xs">
+                                                    {{ $post->category->name }}
+                                                </div>
                                             </div>
-                                        </div>
+                                        @else
+                                            <h1 class="text-red-500 font-medium text-xs">None</h1>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <div class="text-sm font-medium text-gray-900">
+                                            <div class="font-medium text-xs text-gray-900">
                                                 {{ $post->created_at->format('d.m.Y - H:i') }}
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                    <span class="uppercase px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                        {{ $post->status }}
-                                    </span>
+                                        @if ($post->status === 'published')
+                                            <span class="uppercase px-2 inline-flex leading-5 rounded-full bg-green-100 text-green-500 font-medium text-xs">
+                                                {{ $post->status }}
+                                            </span>
+                                        @elseif ($post->status === 'draft')
+                                            <span class="uppercase px-2 inline-flex leading-5 rounded-full bg-yellow-100 text-yellow-500 font-medium text-xs">
+                                                {{ $post->status }}
+                                            </span>
+                                        @else
+                                            <span class="uppercase px-2 inline-flex leading-5 rounded-full bg-red-100 text-red-500 font-medium text-xs">
+                                                {{ $post->status }}
+                                            </span>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="/admin/posts/{{ $post->handle }}/edit"
-                                           class="text-blue-500 hover:text-indigo-900">
+                                        <a href="/admin/posts/{{ $post->id }}/edit"
+                                           class="text-blue-500 hover:text-indigo-900 font-medium text-xs">
                                             Edit
                                         </a>
                                     </td>
@@ -82,13 +100,39 @@
                                               class="text-xs font-semibold">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="text-xs text-gray-400">
+                                            <button class="font-medium text-xs text-gray-400">
                                                 Delete
                                             </button>
                                         </form>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="checkbox" id="myCheckbox" name="myCheckbox">
+                                        @if ($post->status === 'draft')
+                                            <form id="post-publish-form" method="POST"
+                                                  action="/admin/posts/{{ $post->id }}"
+                                                  class="text-xs font-semibold">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" id="status" name="status" value="published">
+
+                                                <button type="submit"
+                                                        class="transition-colors duration-300 text-purple-500 rounded-full text-xs font-normal px-2 py-1 border border-purple-500 hover:bg-purple-500 hover:text-white">
+                                                    Publish
+                                                </button>
+                                            </form>
+                                        @elseif ($post->status === 'published')
+                                            <form id="post-publish-form" method="POST"
+                                                  action="/admin/posts/{{ $post->id }}"
+                                                  class="text-xs font-semibold">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" id="status" name="status" value="draft">
+
+                                                <button type="submit"
+                                                        class="transition-colors duration-300 text-purple-500 rounded-full text-xs font-normal px-2 py-1 border border-purple-500 hover:bg-purple-500 hover:text-white">
+                                                    Draft
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

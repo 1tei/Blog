@@ -13,7 +13,7 @@
                     @include('posts._post-bookmark')
                     <div class="my-3">
                         <a href="/?category={{ $post->category->name }}"
-                           class="transition-colors duration-300 font-bold px-3 py-1 border-2 border-purple-500 rounded-full text-purple-500 uppercase hover:text-white hover:bg-purple-500"
+                           class="transition-colors duration-300  font-bold px-3 py-1 border-2 border-purple-500 rounded-full text-purple-500 uppercase hover:text-white hover:bg-purple-500"
                            style="font-size: 11px">{{ $post->category->name }}</a>
                     </div>
 
@@ -45,8 +45,7 @@
 
                     <form id="user-follow-form" method="GET"
                           action="/posts/{{ $post->handle }}">
-                        @csrf
-                        <div class="flex">
+                        <div class="flex mt-4">
                             <button class="transition-colors duration-300 text-xs font-semibold bg-gray-200 text-black hover:bg-purple-700 hover:text-white rounded-full py-2 w-32">
                                 Read More
                             </button>

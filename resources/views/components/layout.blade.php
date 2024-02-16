@@ -87,21 +87,6 @@
         </div>
     </nav>
 
-    @auth
-        <aside class="block overflow-y-scroll fixed ml-6 p-4 mt-12 text-center border-2 border-purple-500 h-64 rounded-xl">
-            <h1 class="font-semibold mb-4 border-b-2 border-purple-500">Following</h1>
-            <ul>
-                @foreach (auth()->user()->followInstances() as $follow)
-                    <li>
-                        <a href="/?author={{ $follow->username }}"
-                           class="{{ request()->is('/?author=johndoe') ? 'text-purple-600' : '' }}">{{ $follow->name }}</a>
-                    </li>
-
-                @endforeach
-            </ul>
-        </aside>
-    @endauth
-
     {{ $slot }}
 
     <x-flash/>

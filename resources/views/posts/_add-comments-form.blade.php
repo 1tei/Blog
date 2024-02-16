@@ -1,5 +1,5 @@
 @auth
-    <x-panel>
+    <div class="border border-gray-200 rounded-xl w-full px-4 py-8">
         <form method="POST" action="/posts/{{ $post->handle }}/comments">
             @csrf
 
@@ -27,13 +27,13 @@
                 </x-form.button>
             </div>
         </form>
-    </x-panel>
+    </div>
 @else
-    <x-panel>
+    <div class="border border-gray-200 rounded-xl w-full px-4 py-8">
         <a href="/register"
            class="text-blue-500 hover:underline">Register</a>
         or
         <a href="/login" class="text-blue-500 hover:underline">Login</a>
         to comment on this post.
-    </x-panel>
+    </div>
 @endauth

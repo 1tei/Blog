@@ -2,9 +2,10 @@
     <x-setting heading="Publish a new post">
         <form method="POST" action="/admin/posts" enctype="multipart/form-data">
             @csrf
-            <x-form.input name="title"/>
-            <x-form.input name="handle"/>
-            <x-form.input name="thumbnail" type="file"/>
+            <x-form.simpleInput name="title"/>
+            <x-form.simpleInput name="handle"/>
+            <x-form.simpleInput name="thumbnail" type="file"/>
+
 
             <div>
                 <x-form.label name="category_id"/>

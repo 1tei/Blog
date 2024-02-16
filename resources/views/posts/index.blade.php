@@ -1,9 +1,9 @@
 <x-layout>
     @include ('posts._header')
 
-    <div class="max-w-6xl mx-auto mt-6 lg:mt-20 space-y-6">
+    <div class="max-w-6xl mx-auto mt-6 space-y-6">
         <main>
-            @if ($posts->count())
+            @if ($posts->where('status', 'published')->count())
                 <x-posts-grid :posts="$posts"/>
 
                 {{ $posts->links() }}

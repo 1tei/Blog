@@ -1,5 +1,5 @@
 <x-layout>
-    <section class="px-6 py-8">
+    <section class="px-6 py-8 max-w-2xl mx-auto">
         <x-panel>
             <h1 class="font-normal text-2xl">Welcome, we are glad to see you! :)</h1>
             <h2 class="mt-2"> To keep connected with us please create an account with your personal information</h2>

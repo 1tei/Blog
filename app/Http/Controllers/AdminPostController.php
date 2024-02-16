@@ -30,7 +30,7 @@ class AdminPostController extends Controller
 
         $post = Post::create($attributes);
 
-        return redirect('/posts/' . $post->handle);
+        return redirect('/posts/' . $post->id);
     }
 
     public function edit(Post $post)
@@ -40,6 +40,17 @@ class AdminPostController extends Controller
 
     public function update(Post $post)
     {
+        if (request()->status) {
+            if ($post->category) {
+                $post->update([
+                    'status' => request()->status
+                ]);
+                back()->with('success', 'Post updated!');
+            } else {
+                back()->with('fail', 'Post is missing information');
+            }
+        }
+
         $attributes = $this->validatePost($post);
 
         if ($attributes['thumbnail'] ?? false) {
