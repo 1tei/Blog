@@ -7,7 +7,7 @@
                     @csrf
                     @method('DELETE')
                     <button>
-                        <x-favorite-star-fill class="bg-purple-60"/>
+                        <x-icon.starFilled class="bg-purple-60"/>
                     </button>
                 </form>
             @else
@@ -15,7 +15,7 @@
                       action="/favorite/{{ $post->id }}">
                     @csrf
                     <button>
-                        <x-favorite-star/>
+                        <x-icon.star/>
                     </button>
                 </form>
             @endif

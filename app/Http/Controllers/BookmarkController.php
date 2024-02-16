@@ -11,9 +11,11 @@ use Illuminate\Support\Facades\DB;
 
 class BookmarkController extends Controller
 {
-    public function show()
+    public function index()
     {
-        //
+        return view('bookmarks.index', [
+            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->simplePaginate(10)->withQueryString(),
+        ]);
     }
 
 

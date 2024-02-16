@@ -20,79 +20,92 @@
 </style>
 
 
-<body>
-<nav class="md:flex md:justify-between md:items-center px-12 pt-8">
-    <div>
-        <a href="/" class="font-bold text-2xl">
-            <h1 class="text-purple-600">
-                WBS
-            </h1>
-            <h2 class="font-light">
-                BLOG
-            </h2>
-        </a>
-    </div>
+<body class="flex flex-col min-h-screen">
+<div class="flex-1">
+    <nav class="md:flex md:justify-between md:items-center px-12 pt-8">
+        <div>
+            <a href="/" class="font-bold text-2xl">
+                <h1 class="text-purple-600">
+                    WBS
+                </h1>
+                <h2 class="font-light">
+                    BLOG
+                </h2>
+            </a>
+        </div>
 
-    <div class="flex items-center text-xs font-semibold">
-        @auth
-            <x-dropdown>
-                <x-slot name="trigger">
-                    <button class="text-sm font-bold uppercase">Welcome, {{ auth()->user()->name }}</button>
-                </x-slot>
+        <div class="flex items-center text-xs">
+            @auth
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        <button class="py-2 pl-3 pr-9 text-lg font-semibold text-center w-full flex lg:inline-flex lg:w-32">
+                            Actions
+                            <x-icon.downArrow class="absolute pointer-events-none" style="right: 12px; bottom: 12px;"/>
+                        </button>
+                    </x-slot>
 
-                @admin
-                <x-dropdown-item href="#">Dashboard</x-dropdown-item>
-                <x-dropdown-item href="/admin/posts" :active="request()->routeIs('postAll')">All Posts
-                </x-dropdown-item>
-                <x-dropdown-item href="/admin/posts/create" :active="request()->routeIs('postCreate')">New Post
-                </x-dropdown-item>
-                <x-dropdown-item href="/admin/posts/create">Category</x-dropdown-item>
-                @endadmin
+                    @admin
+                    <x-dropdown-item href="#">Dashboard</x-dropdown-item>
+                    <x-dropdown-item href="/admin/posts" :active="request()->routeIs('postAll')">All Posts
+                    </x-dropdown-item>
+                    <x-dropdown-item href="/admin/posts/create" :active="request()->routeIs('postCreate')">New Post
+                    </x-dropdown-item>
+                    <x-dropdown-item href="/admin/posts/create">Category</x-dropdown-item>
+                    @endadmin
 
-                <x-dropdown-item href="#" x-data="()" @click.prevent="document.querySelector('#logout-form').submit()">
-                    Logout
-                </x-dropdown-item>
+                    <x-dropdown-item href="/bookmarks">
+                        Bookmarks
+                    </x-dropdown-item>
 
-                <form id="logout-form" method="POST" action="/logout"
-                      class="text-xs font-semibold ml-6 hidden">
-                    @csrf
-                    <button type="submit"
-                            class="text-purple-600 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">
-                        LOG OUT
-                    </button>
-                </form>
-            </x-dropdown>
-        @else
+                    <x-dropdown-item href="#" x-data="()"
+                                     @click.prevent="document.querySelector('#logout-form').submit()">
+                        Logout
+                    </x-dropdown-item>
+
+                    <form id="logout-form" method="POST" action="/logout"
+                          class="text-xs  ml-6 hidden">
+                        @csrf
+                        <button type="submit"
+                                class="text-purple-600 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">
+                        </button>
+                    </form>
+                </x-dropdown>
+            @else
+                <div>
+                    <a href="/register"
+                       class="font-medium text-purple-600 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">REGISTER</a>
+                    <a href="/login"
+                       class="font-medium text-purple-600 ml-4 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">LOGIN</a>
+                </div>
+            @endauth
             <div>
-                <a href="/register"
-                   class="font-medium text-purple-600 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">REGISTER</a>
-                <a href="/login"
-                   class="font-medium text-purple-600 ml-4 rounded-full py-3 px-5 border-2 border-purple-500 hover:bg-purple-500 hover:text-white">LOGIN</a>
-                @endauth
-
                 <a href="#newsletter"
-                   class="bg-purple-500 rounded-full m-4 text-xs font-semibold text-white uppercase py-3 px-5 border-2 border-purple-500">
+                   class="bg-purple-500 rounded-full m-4 text-xs font-medium text-white uppercase py-3 px-5 border-2 border-purple-500">
                     Subscribe for Updates
                 </a>
             </div>
-</nav>
+        </div>
+    </nav>
 
-@auth
-    <aside class="block overflow-y-scroll fixed ml-6 p-4 mt-12 text-center border-2 border-purple-500 h-64 rounded-xl">
-        <h1 class="font-semibold mb-4 border-b-2 border-purple-500">Following</h1>
-        <ul>
-            @foreach (auth()->user()->followInstances() as $follow)
-                <li>
-                    <a href="/?author={{ $follow->username }}"
-                       class="{{ request()->is('/?author=johndoe') ? 'text-purple-600' : '' }}">{{ $follow->name }}</a>
-                </li>
+    @auth
+        <aside class="block overflow-y-scroll fixed ml-6 p-4 mt-12 text-center border-2 border-purple-500 h-64 rounded-xl">
+            <h1 class="font-semibold mb-4 border-b-2 border-purple-500">Following</h1>
+            <ul>
+                @foreach (auth()->user()->followInstances() as $follow)
+                    <li>
+                        <a href="/?author={{ $follow->username }}"
+                           class="{{ request()->is('/?author=johndoe') ? 'text-purple-600' : '' }}">{{ $follow->name }}</a>
+                    </li>
 
-            @endforeach
-        </ul>
-    </aside>
-@endauth
+                @endforeach
+            </ul>
+        </aside>
+    @endauth
 
-{{ $slot }}
+    {{ $slot }}
+
+    <x-flash/>
+</div>
 
 <footer id="newsletter"
         class="bg-gray-100 border border-black border-opacity-5 rounded-xl text-center py-16 px-10 mt-16">
@@ -105,11 +118,11 @@
                 @csrf
 
                 <div class="lg:py-3 lg:px-5 flex items-center">
-                    <label for="email" class="hidden lg:inline-block">
-                        <x-mailbox-icon/>
+                    <label for="newsletterEmail" class="hidden lg:inline-block">
+                        <x-icon.mailbox/>
                     </label>
 
-                    <input id="email" name="email" type="text" placeholder="Your email address"
+                    <input id="newsletterEmail" name="newsletterEmail" type="text" placeholder="Your email address"
                            class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
                 </div>
 
@@ -123,11 +136,9 @@
     </div>
 
     <div class="mt-4">
-        @error('email')
+        @error('newsletterEmail')
         <span class="text-red-600 font-xs">{{ $message }}</span>
         @enderror
     </div>
 </footer>
-
-<x-flash/>
 </body>

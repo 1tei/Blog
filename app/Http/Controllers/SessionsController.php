@@ -15,13 +15,13 @@ class SessionsController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'username' => ['required'],
+            'email' => ['required'],
             'password' => ['required']
         ]);
 
         if (!auth()->attempt($attributes)) {
             throw ValidationException::withMessages([
-                'username' => 'This username does not exist and or password is incorrect.'
+                'email' => 'This email address does not have an account and or password is incorrect.'
             ]);
         };
 

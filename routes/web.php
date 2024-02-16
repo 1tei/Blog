@@ -18,6 +18,7 @@ Route::post('posts/{post:handle}/comments', [CommentController::class, 'store'])
 Route::post('follow/{user}', [FollowController::class, 'store']);
 Route::delete('unfollow/{user}', [FollowController::class, 'destroy']);
 
+Route::get('bookmarks', [BookmarkController::class, 'index'])->name('bookmarks');
 Route::post('favorite/{post}', [BookmarkController::class, 'store']);
 Route::delete('unfavorite/{post}', [BookmarkController::class, 'destroy']);
 
