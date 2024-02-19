@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->text('excerpt')->nullable();
             $table->text('body')->nullable();
             $table->enum('status', ['draft', 'published', 'deleted'])->default('draft');
+            $table->integer('view_count')->default('0');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
         });

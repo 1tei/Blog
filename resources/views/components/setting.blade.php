@@ -1,5 +1,5 @@
 @props(['heading'])
-<section class="px-6 max-w-4xl mx-auto">
+<section class="px-6 max-w-7xl mx-auto">
     <h1 class="text-xl font-bold mb-8 border-b pb-4">
         {{ $heading }}
     </h1>
@@ -10,27 +10,30 @@
             <ul>
                 <li>
                     <a href="/admin/dashboard"
-                       class="">Dashboard</a>
+                       class="{{ request()->is('admin/dashboard') ? 'text-purple-700 font-normal' : '' }}">Dashboard</a>
                 </li>
                 <li>
                     <a href="/admin/posts"
-                       class="{{ request()->is('admin/posts') ? 'text-blue-500' : '' }}">All Posts</a>
+                       class="{{ request()->is('admin/posts') ? 'text-purple-700 font-normal' : '' }}">All Posts</a>
                 </li>
                 <li>
                     <a href="/admin/users"
-                       class="{{ request()->is('admin/users') ? 'text-blue-500' : '' }}">All users</a>
+                       class="{{ request()->is('admin/users') ? 'text-purple-700 font-normal' : '' }}">All users</a>
                 </li>
                 <li>
                     <a href="/admin/categories"
-                       class="{{ request()->is('admin/categories') ? 'text-blue-500' : '' }}">All categories</a>
+                       class="{{ request()->is('admin/categories') ? 'text-purple-700 font-normal' : '' }}">All
+                        categories</a>
                 </li>
                 <li>
                     <a href="/admin/posts/create"
-                       class="{{ request()->is('admin/posts/create') ? 'text-blue-500' : '' }}">New Post</a>
+                       class="{{ request()->is('admin/posts/create') ? 'text-purple-700 font-normal' : '' }}">New
+                        Post</a>
                 </li>
                 <li>
                     <a href="/admin/categories/create"
-                       class="{{ request()->is('admin/categories/create') ? 'text-blue-500' : '' }}">New category</a>
+                       class="{{ request()->is('admin/categories/create') ? 'text-purple-700 font-normal' : '' }}">New
+                        category</a>
                 </li>
             </ul>
         </aside>

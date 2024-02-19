@@ -26,17 +26,21 @@
                                 </a>
                             </h1>
 
-                            <span class="mt-2 block text-gray-400 text-xs">
-                        Published <time> {{ $post->created_at->diffForHumans() }}</time> by
-                        <a href="/?author=" {{ $post->author->username }}
-                        class="text-black underline hover:text-purple-600">
-                        {{ $post->author->name }} </a>
-                    </span>
+                            <span class="mt-2 block font-light text-xs text-gray-400">
+                            Published
+                            <time class="font-light text-xs text-gray-400"> {{ $post->created_at->diffForHumans() }}</time>
+                                by
+                            <a href="/?author=" {{ $post->author->username }}
+                            class="font-light text-xs text-gray-400 underline hover:text-purple-600">
+                                {{ $post->author->name }} </a>
+                            </span>
+
+                            <h1 class="font-light text-xs text-gray-400"> {{ $post->view_count }} views</h1>
                         </div>
                     </header>
 
                     <div>
-                        <div class="text-sm mt-4">
+                        <div class="text-sm mt-8">
                             <p class="overflow-hidden h-24">
                                 {{ $post->excerpt }}
                             </p>

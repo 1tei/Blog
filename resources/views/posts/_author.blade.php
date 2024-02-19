@@ -1,6 +1,6 @@
 <div class="inline-flex items-center text-sm">
     <div class="flex-shrink-0">
-        <img src="https://i.pravatar.cc/100?u={{ $post->user_id }}" alt="avatar"
+        <img src="{{ asset('storage/' . $post->author->avatar) }}" alt="avatar"
              class="rounded-xl w-16 h-16">
     </div>
     <div class="ml-4 text-md text-center">

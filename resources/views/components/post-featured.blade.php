@@ -27,14 +27,18 @@
                                 {{ $post->title }}
                             </a>
                         </h1>
+                        <span class="mt-2 block text-gray-400 font-light text-xs">
+                        Published <time
+                                    class="font-light text-xs">{{ $post->created_at->diffForHumans() }}</time></span>
 
-                        <span class="mt-2 block text-gray-400 text-xs">
-                        Published <time>{{ $post->created_at->diffForHumans() }}</time>
-                    </span>
+
+                        <h1 class="font-light text-xs text-gray-400"> {{ $post->view_count }} views</h1>
                     </div>
+
+
                 </header>
 
-                <div class="flex-1 overflow-hidden max-h-52 text-sm mt-2">
+                <div class="flex-1 overflow-hidden max-h-52 text-sm mt-4">
                     <p>
                         {{ $post->excerpt }}
                     </p>
@@ -43,6 +47,7 @@
                 @include ('posts._post-footer')
 
             </div>
+
         </div>
     </div>
 </article>

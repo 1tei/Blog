@@ -9,7 +9,15 @@
                             <tr>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    ID
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Title
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Views
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -35,6 +43,10 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Publish
                                 </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Select
+                                </th>
                             </tr>
 
 
@@ -43,22 +55,33 @@
                             @foreach ($posts as $post)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="font-light text-sm text-gray-900">
+                                            {{ $post->id }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center ">
                                             <div class="text-gray-900">
                                                 @if ($post->category)
-                                                    <a href="/posts/{{ $post->handle }}" class="font-medium text-xs">
+                                                    <a href="/posts/{{ $post->handle }}"
+                                                       class="font-light text-sm text-gray-900 hover:text-purple-500">
                                                         {{ $post->title }}
                                                     </a>
                                                 @else
-                                                    <p class="font-medium text-xs">{{ $post->title }}</p>
+                                                    <p class="font-light text-sm text-gray-900 hover:text-purple-500">{{ $post->title }}</p>
                                                 @endif
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        <span class="font-light text-sm text-gray-900">
+                                            {{ $post->view_count }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
                                         @if($post->category)
                                             <div class="flex items-center">
-                                                <div class="text-gray-900 font-medium text-xs">
+                                                <div class="font-light text-sm text-gray-900">
                                                     {{ $post->category->name }}
                                                 </div>
                                             </div>
@@ -68,7 +91,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">
-                                            <div class="font-medium text-xs text-gray-900">
+                                            <div class="font-light text-sm text-gray-900">
                                                 {{ $post->created_at->format('d.m.Y - H:i') }}
                                             </div>
                                         </div>
@@ -90,7 +113,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="/admin/posts/{{ $post->id }}/edit"
-                                           class="text-blue-500 hover:text-indigo-900 font-medium text-xs">
+                                           class="text-sm font-light text-blue-500 hover:text-blue-900">
                                             Edit
                                         </a>
                                     </td>
@@ -100,7 +123,7 @@
                                               class="text-xs font-semibold">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="font-medium text-xs text-gray-400">
+                                            <button class="text-sm font-light text-gray-400 hover:text-gray-900">
                                                 Delete
                                             </button>
                                         </form>
@@ -133,6 +156,9 @@
                                                 </button>
                                             </form>
                                         @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <input type="checkbox">
                                     </td>
                                 </tr>
                             @endforeach

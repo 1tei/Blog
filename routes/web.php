@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminPostController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\BookmarkController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -33,6 +35,8 @@ Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
 Route::middleware('can:admin')->group(function () {
+    Route::get('admin/dashboard', AdminController::class)->name('dashboard');;
+
     Route::get('admin/posts', [AdminPostController::class, 'index'])->name('postAll');
     Route::post('admin/posts', [AdminPostController::class, 'store']);
     Route::get('admin/posts/create', [AdminPostController::class, 'create'])->name('postCreate');
@@ -46,4 +50,11 @@ Route::middleware('can:admin')->group(function () {
     Route::get('admin/categories/{category}/edit', [CategoryController::class, 'edit']);
     Route::patch('admin/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy']);
+
+    Route::get('admin/users', [AdminUserController::class, 'index'])->name('users');;
+    Route::post('admin/users', [AdminUserController::class, 'store']);
+    Route::get('admin/users/create', [AdminUserController::class, 'create']);
+    Route::get('admin/users/{user}/edit', [AdminUserController::class, 'edit']);
+    Route::patch('admin/users/{user}', [AdminUserController::class, 'update']);
+    Route::delete('admin/users/{user}', [AdminUserController::class, 'destroy']);
 });

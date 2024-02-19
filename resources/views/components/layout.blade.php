@@ -45,16 +45,22 @@
                     </x-slot>
 
                     @admin
-                    <x-dropdown-item href="#">Dashboard</x-dropdown-item>
+                    <x-dropdown-item href="/admin/dashboard" :active="request()->routeIs('dashboard')">Dashboard
+                    </x-dropdown-item>
                     <x-dropdown-item href="/admin/posts" :active="request()->routeIs('postAll')">All Posts
                     </x-dropdown-item>
                     <x-dropdown-item href="/admin/posts/create" :active="request()->routeIs('postCreate')">New Post
                     </x-dropdown-item>
-                    <x-dropdown-item href="/admin/posts/create">Category</x-dropdown-item>
+                    <x-dropdown-item href="/admin/users" :active="request()->routeIs('users')">All users
+                    </x-dropdown-item>
                     @endadmin
 
-                    <x-dropdown-item href="/bookmarks">
+                    <x-dropdown-item href="/bookmarks" :active="request()->routeIs('bookmarks')">
                         Bookmarks
+                    </x-dropdown-item>
+
+                    <x-dropdown-item href="/profile" :active="request()->routeIs('profile')">
+                        Profile
                     </x-dropdown-item>
 
                     <x-dropdown-item href="#" x-data="()"
