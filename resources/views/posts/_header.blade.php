@@ -30,11 +30,13 @@
         </div>
 
         @auth
-            <div class="overflow-x-auto py-4 text-center mt-12 rounded-xl px-5 py-6">
+            <div class="overflow-x-auto py-4 text-center mt-12 rounded-xl px-5">
                 <ul class="flex flex-row">
-                    @foreach (auth()->user()->followInstances() as $follow)
-                        <x-followed-author :follow="$follow"/>
-                    @endforeach
+                    @if($followedUser)
+                        @foreach ($followedUser as $follow)
+                            <x-followed-author :follow="$follow"/>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
         @endauth

@@ -4,7 +4,7 @@
             @csrf
 
             <header class="flex items-center">
-                <img src="https://i.pravatar.cc/100?u={{ Auth::id() }}" alt="avatar" width="40"
+                <img src="{{ asset('storage/' . $post->author->avatar) }}" alt="avatar" width="40"
                      height="40"
                      class="rounded-xl">
                 <h2 class="ml-4">Want to participate?</h2>

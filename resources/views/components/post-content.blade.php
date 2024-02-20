@@ -34,7 +34,7 @@
                             class="font-light text-xs text-gray-400 underline hover:text-purple-600">
                                 {{ $post->author->name }} </a>
                             </span>
-
+                            
                             <h1 class="font-light text-xs text-gray-400"> {{ $post->view_count }} views</h1>
                         </div>
                     </header>

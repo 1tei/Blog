@@ -12,7 +12,7 @@ class PostController extends Controller
     public function index()
     {
         return view('posts.index', [
-            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->simplePaginate(10)->withQueryString(),
+            'posts' => Post::latest()->where('status', 'published')->filter(request(['search', 'category', 'author']))->simplePaginate(10)->withQueryString(),
         ]);
     }
 
@@ -25,6 +25,9 @@ class PostController extends Controller
             'view_count' => $count
         ]);
 
+        if ($post->status !== 'published' && auth()->user()->username !== 'teian') {
+            abort(404);
+        }
 
         return view('posts.show', [
             'post' => $post

@@ -7,17 +7,26 @@ use App\Models\Follow;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class BookmarkController extends Controller
 {
     public function index()
     {
+        $authenticatedUserId = Auth::id();
+
         return view('bookmarks.index', [
-            'posts' => Post::latest()->filter(request(['search', 'category', 'author']))->simplePaginate(10)->withQueryString(),
+            'posts' => Post::latest()
+                ->where('status', 'published')
+                ->whereHas('bookmarks', function ($query) use ($authenticatedUserId) {
+                    $query->where('user_id', $authenticatedUserId);
+                })
+                ->filter(request(['search', 'category', 'author']))
+                ->simplePaginate(10)
+                ->withQueryString(),
         ]);
     }
-
 
     public function store(Post $post)
     {

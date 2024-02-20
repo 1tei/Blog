@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -30,7 +31,7 @@ class AdminPostController extends Controller
 
         $post = Post::create($attributes);
 
-        return redirect('/posts/' . $post->id);
+        return redirect('/posts/' . $post->handle);
     }
 
     public function edit(Post $post)
@@ -45,13 +46,26 @@ class AdminPostController extends Controller
                 $post->update([
                     'status' => request()->status
                 ]);
-                back()->with('success', 'Post updated!');
+                return back()->with('success', 'Post updated!');
             } else {
-                back()->with('fail', 'Post is missing information');
+                return back()->with('fail', 'Post is missing a category.');
             }
         }
 
+        $userID = User::where('username', request()->author)->value('id');
+
+        if ($userID === null) {
+            return back()->with('fail', 'Author does not exist.');
+        }
+
         $attributes = $this->validatePost($post);
+
+        request()->validate([
+            'author' => ['required', 'max:50', 'min:3']
+        ]);
+
+        unset($attributes['author']);
+        $attributes['user_id'] = $userID;
 
         if ($attributes['thumbnail'] ?? false) {
             $attributes['thumbnail'] = request()->file('thumbnail')->store('thumbnails');

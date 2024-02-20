@@ -12,6 +12,12 @@
                         </x-icon.circle>
                     </x-slot>
                 </x-form.input>
+                <div class="flex flex-row justify-start align-middle text-sm px-8">
+                    <div class="w-full ml-20 -mt-2 -mb-4">
+                        <x-form.textarea name="description"></x-form.textarea>
+                        <x-form.error name="description"/>
+                    </div>
+                </div>
                 <x-form.input name="username">
                     <x-slot name="icon">
                         <x-icon.hashtag/>

@@ -36,6 +36,7 @@
                         category</a>
                 </li>
             </ul>
+
         </aside>
 
         <main class="flex-1">

@@ -3,7 +3,7 @@
         <img src="{{ asset('storage/' . $post->author->avatar) }}" alt="avatar"
              class="rounded-xl w-16 h-16">
     </div>
-    <div class="ml-4 text-md text-center">
+    <div class="ml-4 text-md">
         <div>
             <a href="/?author={{ $post->author->username }}">
                 <h1 class="font-bold"> {{ ucwords($post->author->name) }}</h1>

@@ -58,12 +58,12 @@ class User extends Authenticatable
         return $this->hasMany(Follow::class, 'followed_user_id');
     }
 
+
     public function followerInstances()
     {
-        return $this->followers->map(function ($follow) {
-            return $follow->user;
-        });
+        return User::whereIn('id', $this->followers->pluck('user_id'))->get();
     }
+
 
     public function follows()
     {
@@ -72,9 +72,7 @@ class User extends Authenticatable
 
     public function followInstances()
     {
-        return $this->follows->map(function ($follow) {
-            return $follow->followedUser;
-        });
+        return User::whereIn('id', $this->follows->pluck('followed_user_id'))->get();
     }
 
     public function bookmarks()
@@ -84,8 +82,6 @@ class User extends Authenticatable
 
     public function bookmarkInstances()
     {
-        return $this->bookmarks->map(function ($bookmark) {
-            return $bookmark->post;
-        });
+        return Post::whereIn('id', $this->bookmarks->pluck('post_id'))->get();
     }
 }

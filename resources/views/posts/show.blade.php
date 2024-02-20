@@ -6,6 +6,9 @@
                 <div class="col-span-4 lg:pt-14 mb-10">
                     <img src="{{ asset('storage/' . $post->thumbnail) }}" alt="Blog Post illustration"
                          class="rounded-xl">
+                    <div class="max-w-2xl lg:pr-0 pr-8 mt-3">
+                        @include('posts._post-bookmark')
+                    </div>
 
                     <p class="mt-4 block font-light text-xs text-gray-400">
                         Published

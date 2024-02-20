@@ -2,9 +2,13 @@
     <section class="px-6 py-8 max-w-2xl mx-auto">
         <x-panel>
             <h1 class="font-normal text-2xl">Edit your profile</h1>
-            <form method="POST" action="/profile" class="mt-14">
+            <form method="POST" action="/admin/users/{{ $user->id }}" class="mt-14">
                 @csrf
                 @method('PATCH')
+
+                <input type="hidden" value="{{ $user->id }}"
+                       name="id"
+                       id="id">
 
                 <x-form.input name="name" :value="old('name', $user->name)">
                     <x-slot name="icon">
@@ -26,13 +30,6 @@
                     </x-slot>
                 </x-form.input>
                 <x-form.input name="email" :value="old('email', $user->email)">
-                    <x-slot name="icon">
-                        <x-icon.circle>
-                            <x-icon.email/>
-                        </x-icon.circle>
-                    </x-slot>
-                </x-form.input>
-                <x-form.input name="password" type="password">
                     <x-slot name="icon">
                         <x-icon.circle>
                             <x-icon.email/>

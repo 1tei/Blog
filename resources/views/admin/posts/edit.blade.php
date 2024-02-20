@@ -6,11 +6,12 @@
 
             <x-form.simpleInput name="title" :value="old('title', $post->title)"/>
             <x-form.simpleInput name="handle" :value="old('handle', $post->handle)"/>
+            <x-form.simpleInput name="author" :value="old('author', $post->author->username)"/>
             <div class="flex">
                 <div class="flex-1">
                     <x-form.simpleInput name="thumbnail" type="file" :value="old('thumbnail', $post->thumbnail)"/>
                 </div>
-                <div class="ml-6 mt-">
+                <div class="ml-6">
                     <x-form.label name="Current image"/>
                     <img src="{{ asset('storage/' . $post->thumbnail) }}" width="200" alt="Blog Post illustration"
                          class="rounded-xl">

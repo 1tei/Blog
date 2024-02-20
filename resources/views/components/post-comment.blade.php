@@ -3,7 +3,7 @@
 <div class="border border-gray-200 rounded-xl w-full px-4 py-8">
     <article class="flex space-x-8">
         <div class="flex-shrink-0">
-            <img src="https://i.pravatar.cc/100?u={{ $comment->user_id }}" alt="avatar" width="60" height="60"
+            <img src="{{ asset('storage/' . $comment->author->avatar)}}" alt="avatar" width="60" height="60"
                  class="rounded-xl">
         </div>
         <div>

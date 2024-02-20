@@ -112,8 +112,8 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="/admin/posts/{{ $post->id }}/edit"
-                                           class="text-sm font-light text-blue-500 hover:text-blue-900">
+                                        <a href="/admin/posts/{{ $post->id }}"
+                                           class="text-sm font-light text-purple-500 hover:text-blue-900">
                                             Edit
                                         </a>
                                     </td>

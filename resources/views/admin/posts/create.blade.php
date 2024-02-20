@@ -22,8 +22,8 @@
                 <x-form.error name="category_id"/>
             </div>
 
-            <x-form.textarea name="Excerpt"/>
-            <x-form.textarea name="Body"/>
+            <x-form.textarea name="excerpt"/>
+            <x-form.textarea name="body"/>
 
             <div class="flex justify-center">
                 <x-form.button>

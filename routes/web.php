@@ -11,6 +11,7 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PostController::class, 'index'])->name('home');
@@ -34,27 +35,31 @@ Route::get('login', [SessionsController::class, 'create'])->middleware('guest');
 Route::post('login', [SessionsController::class, 'store'])->middleware('guest');
 Route::post('logout', [SessionsController::class, 'destroy'])->middleware('auth');
 
+Route::get('profile', [UserController::class, 'show'])->middleware('auth');
+Route::patch('profile', [UserController::class, 'update'])->middleware('auth');
+Route::get('profile/edit/{user}', [UserController::class, 'edit'])->middleware('auth');
+
 Route::middleware('can:admin')->group(function () {
     Route::get('admin/dashboard', AdminController::class)->name('dashboard');;
 
     Route::get('admin/posts', [AdminPostController::class, 'index'])->name('postAll');
     Route::post('admin/posts', [AdminPostController::class, 'store']);
     Route::get('admin/posts/create', [AdminPostController::class, 'create'])->name('postCreate');
-    Route::get('admin/posts/{post}/edit', [AdminPostController::class, 'edit']);
+    Route::get('admin/posts/{post}', [AdminPostController::class, 'edit']);
     Route::patch('admin/posts/{post}', [AdminPostController::class, 'update']);
     Route::delete('admin/posts/{post}', [AdminPostController::class, 'destroy']);
 
     Route::get('admin/categories', [CategoryController::class, 'index']);
     Route::post('admin/categories', [CategoryController::class, 'store']);
     Route::get('admin/categories/create', [CategoryController::class, 'create']);
-    Route::get('admin/categories/{category}/edit', [CategoryController::class, 'edit']);
+    Route::get('admin/categories/{category}', [CategoryController::class, 'edit']);
     Route::patch('admin/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('admin/categories/{category}', [CategoryController::class, 'destroy']);
 
     Route::get('admin/users', [AdminUserController::class, 'index'])->name('users');;
     Route::post('admin/users', [AdminUserController::class, 'store']);
     Route::get('admin/users/create', [AdminUserController::class, 'create']);
-    Route::get('admin/users/{user}/edit', [AdminUserController::class, 'edit']);
+    Route::get('admin/users/{user}', [AdminUserController::class, 'edit']);
     Route::patch('admin/users/{user}', [AdminUserController::class, 'update']);
     Route::delete('admin/users/{user}', [AdminUserController::class, 'destroy']);
 });

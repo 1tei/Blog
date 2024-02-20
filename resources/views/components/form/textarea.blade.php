@@ -4,7 +4,7 @@
 
     <textarea name="{{ $name }}"
               id="{{ $name }}"
-              class="w-full focus:outline-none focus:ring border border-gray-400"
+              class="w-full focus:outline-none focus:ring border border-gray-200"
               required
                {{ $attributes(['rows' => 4]) }}>{{ $slot ?? old($name) }}</textarea>
 

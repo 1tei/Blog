@@ -77,8 +77,8 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="/admin/categories/{{ $category->id }}/edit"
-                                           class="text-sm font-light text-blue-500 hover:text-blue-900">
+                                        <a href="/admin/categories/{{ $category->id }}"
+                                           class="text-sm font-light text-purple-500 hover:text-blue-900">
                                             Edit
                                         </a>
                                     </td>
