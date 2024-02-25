@@ -35,10 +35,6 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Delete
                                 </th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Select
-                                </th>
                             </tr>
 
 
@@ -89,9 +85,6 @@
                                                 Delete
                                             </button>
                                         </form>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="checkbox">
                                     </td>
                                 </tr>
                             @endforeach

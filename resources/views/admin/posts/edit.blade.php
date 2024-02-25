@@ -6,7 +6,13 @@
 
             <x-form.simpleInput name="title" :value="old('title', $post->title)"/>
             <x-form.simpleInput name="handle" :value="old('handle', $post->handle)"/>
-            <x-form.simpleInput name="author" :value="old('author', $post->author->username)"/>
+
+            @if($post->author)
+                <x-form.simpleInput name="author" :value="old('author', $post->author->username)"/>
+            @else
+                <x-form.simpleInput name="author"/>
+            @endif
+
             <div class="flex">
                 <div class="flex-1">
                     <x-form.simpleInput name="thumbnail" type="file" :value="old('thumbnail', $post->thumbnail)"/>

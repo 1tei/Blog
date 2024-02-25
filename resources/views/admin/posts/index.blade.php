@@ -25,6 +25,10 @@
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Author
+                                </th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Created at
                                 </th>
                                 <th scope="col"
@@ -42,10 +46,6 @@
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Publish
-                                </th>
-                                <th scope="col"
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Select
                                 </th>
                             </tr>
 
@@ -83,6 +83,17 @@
                                             <div class="flex items-center">
                                                 <div class="font-light text-sm text-gray-900">
                                                     {{ $post->category->name }}
+                                                </div>
+                                            </div>
+                                        @else
+                                            <h1 class="text-red-500 font-medium text-xs">None</h1>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($post->author)
+                                            <div class="flex items-center">
+                                                <div class="font-light text-sm text-gray-900">
+                                                    {{ $post->author->username }}
                                                 </div>
                                             </div>
                                         @else
@@ -129,7 +140,7 @@
                                         </form>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        @if ($post->status === 'draft')
+                                        @if ($post->status === 'draft' || $post->status === 'deleted')
                                             <form id="post-publish-form" method="POST"
                                                   action="/admin/posts/{{ $post->id }}"
                                                   class="text-xs font-semibold">
@@ -156,9 +167,6 @@
                                                 </button>
                                             </form>
                                         @endif
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <input type="checkbox">
                                     </td>
                                 </tr>
                             @endforeach

@@ -61,7 +61,9 @@ class AdminUserController extends Controller
         DB::table('posts')
             ->select('id')
             ->where('user_id', $user->id)
-            ->update(['status' => 'deleted']);
+            ->update([
+                'status' => 'deleted',
+                'user_id' => null]);
 
         return back()->with('success', 'User deleted!');
     }

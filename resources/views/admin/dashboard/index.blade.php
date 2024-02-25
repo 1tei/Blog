@@ -11,9 +11,7 @@
                                     <div class="inline-flex items-center">
                                         <img src="{{ asset('storage/' . $user->avatar) }}" alt="avatar"
                                              class="rounded-xl w-8 h-8">
-                                        <a href="/user/{{ $user->id }}">
-                                            <h1 class="font-light text-gray-900 ml-2 hover:text-purple-500">{{ ucwords($user->name) }}</h1>
-                                        </a>
+                                        <h1 class="font-light text-gray-900 ml-2">{{ ucwords($user->name) }}</h1>
                                     </div>
                                 </div>
                             @endforeach

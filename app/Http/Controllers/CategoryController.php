@@ -54,8 +54,10 @@ class CategoryController extends Controller
         $posts = Post::where('category_id', $category->id)->get();
 
         foreach ($posts as $post) {
-            $post->status = 'draft';
-            $post->save();
+            if (!$post->status = 'deleted') {
+                $post->status = 'draft';
+                $post->save();
+            }
         }
 
         return back()->with('success', 'Category deleted!');

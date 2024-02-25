@@ -42,13 +42,13 @@ class AdminPostController extends Controller
     public function update(Post $post)
     {
         if (request()->status) {
-            if ($post->category) {
+            if ($post->category && $post->author) {
                 $post->update([
                     'status' => request()->status
                 ]);
                 return back()->with('success', 'Post updated!');
             } else {
-                return back()->with('fail', 'Post is missing a category.');
+                return back()->with('fail', 'Post is missing information.');
             }
         }
 
